@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 // test, faut bien s'amuser
 router.get('/bp', function(req, res, next) {
-  res.render('index', { title: 'MY page, bitch' });
+  res.render('index', { title: 'MY page, bitch', image: '00.jpg'});
 });
 
 module.exports = router;

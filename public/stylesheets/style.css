@@ -7,6 +7,6 @@ a {
   color: #00B7FF;
 }
 
-img {
-  max-height: 100px;
+a img {
+  max-width: 650px;
 }

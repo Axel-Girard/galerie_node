@@ -8,8 +8,8 @@ block content
   p Welcome to '#{argc}'
   - var max = parseInt( argc, 10);
   p= max
+  p #{argv}
   while val < max
-    p #{argv}
     if val < 10
       - val++;
       //img(src='0' + val++ + '.jpg')

@@ -5,8 +5,14 @@ block content
   p Welcome to #{title}
   //img(src=image)
   - var val = 0
-  while val < 19
+  p Welcome to '#{argc}'
+  - var max = parseInt( argc, 10);
+  p= max
+  while val < max
+    p #{argv}
     if val < 10
-      img(src='0' + val++ + '.jpg')
+      - val++;
+      //img(src='0' + val++ + '.jpg')
     else
-      img(src=val++ + '.jpg')
+      - val++;
+      //img(src=val++ + '.jpg')

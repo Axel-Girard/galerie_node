@@ -4,9 +4,10 @@ block content
   h1= title
   p Welcome to #{title}
   //img(src=image)
-  - var val = 0
-  while val < 19
-    if val < 10
-      img(src='0' + val++ + '.jpg')
-    else
-      img(src=val++ + '.jpg')
+  - let val = 0
+  table
+    each val in argv
+      tr
+        td
+          img(src=val)
+          

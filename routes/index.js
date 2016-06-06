@@ -10,16 +10,22 @@ router.get('/home', function(req, res, next) {
 
 // test, faut bien s'amuser
 router.get('/bp', function(req, res, next) {
-  res.render('bp', { title: 'my page', argv: process.argv});
-});
-
-// test, un brin plus poussé; ça reste très simple faut pas déconner
-router.get('/bp', function(req, res, next) {
-  res.render('bp', { title: 'my page', argv: process.argv});
+  var img = fs.readFileSync(process.argv.get(2));
+  res.render('bp', {
+    title: 'my page',
+    argv: process.argv.slice(2),
+    image: img
+  });
 });
 
 router.get('/dw', function (req, res) {
   res.download('app.js');
+});
+
+router.get('/img', function (req, res) {
+  var img = fs.readFileSync(process.argv.get(2));
+  res.writeHead(200, {'Content-Type': 'image/gif' });
+  res.end(img, 'binary');
 });
 
 module.exports = router;

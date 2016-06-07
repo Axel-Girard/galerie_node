@@ -1,4 +1,6 @@
 var express = require('express');
+var fs = require('fs');
+var path = require('path');
 var router = express.Router();
 
 /* GET home page. */
@@ -20,10 +22,29 @@ router.get('/dw', function (req, res) {
   res.download('app.js');
 });
 
-router.get('/img', function (req, res) {
-  var img = fs.readFileSync(process.argv.get(2));
-  res.writeHead(200, {'Content-Type': 'image/gif' });
-  res.end(img, 'binary');
+// lire le contenu d'un répertoire
+router.get('/explorer', function(req, res, next) {
+  var p = "../"
+  fs.readdir(p, function (err, files) {
+      if (err) {
+          throw err;
+      }
+
+      files.map(function (file) {
+          return path.join(p, file);
+      }).filter(function (file) {
+          return fs.statSync(file).isFile();
+      }).forEach(function (file) {
+          console.log("%s (%s)", file, path.extname(file));
+      });
+  });
+});
+
+// lire le contenu d'un répertoire
+router.get('/image', function(req, res, next) {
+   var img = fs.readFileSync(process.argv[2]);
+   res.writeHead(200, {'Content-Type': 'image/gif' });
+   res.end(img, 'binary');
 });
 
 module.exports = router;

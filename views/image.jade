@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  table
+    each path, index in img
+      - var cpt = (index + 1) % 4;
+      if cpt == 1
+        tr
+      td
+        a(href="img/"+path)
+          img(src="img/"+path)

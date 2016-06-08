@@ -4,6 +4,9 @@ var path = require('path');
 var http = require('http');
 var url = require('url');
 var colors = require('colors/safe');
+var mmm = require('mmmagic'),
+    Magic = mmm.Magic;
+var magic = new Magic(mmm.MAGIC_MIME_TYPE);
 var router = express.Router();
 
 /* GET home page. */
@@ -46,6 +49,7 @@ router.get('/image', function(req, res, next) {
   var images = [];
   elem.forEach(function (name) {
     images = images.concat(getImages(name));
+    console.log(getImages(name).ret);
   });
   res.render('image', {
     img: images
@@ -57,16 +61,27 @@ function getImages(path){
   var ret = [];
 
   if (fs.lstatSync(path).isDirectory()) {
-    console.log(colors.white(colors.trap('Here we go!')));
     var innerFile = [];
     fs.readdirSync(path).forEach(function (name) {
-      console.log(colors.gray(path+'/'+name));
       innerFile = innerFile.concat(getImages(path+'/'+name));
     });
     ret = ret.concat(innerFile);
     return ret;
   } else {
-    return path;
+    var ret;
+
+    magic.detectFile(path, function(err, result) {
+      if (err) throw err;
+
+      console.log(colors.cyan(result));
+      if (result === 'image/png') {
+        console.log(colors.america(path));
+      } else {
+        path = '';
+      }
+      ret = path;
+    });
+    return magic.detectFile.result;
   }
 }
 

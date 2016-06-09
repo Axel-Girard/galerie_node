@@ -4,10 +4,10 @@ var path = require('path');
 var http = require('http');
 var url = require('url');
 var colors = require('colors/safe');
-var mmm = require('mmmagic'),
-    Magic = mmm.Magic;
-var magic = new Magic(mmm.MAGIC_MIME_TYPE);
+var mime = require('mime');
 var router = express.Router();
+
+var util = require('../util/util.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-// test, faut bien s'amuser
+// test, faut bien commencer quelque part
 router.get('/bp', function(req, res, next) {
   res.render('bp', {
     title: 'my page',
@@ -27,7 +27,7 @@ router.get('/bp', function(req, res, next) {
   });
 });
 
-// download of the fille app.js, porque ? porque not !
+// test, download of the fille app.js, porque ? porque not !
 router.get('/dw', function (req, res) {
   res.download('app.js');
 });
@@ -43,13 +43,15 @@ router.get('/img/*', function(req, res, next) {
   res.end(file, 'binary');
 });
 
-// lire les images des path passé dans les arguments
+// lire les images des path passés dans les arguments
 router.get('/image', function(req, res, next) {
+  // get all arguments give in commande line
   var elem = process.argv.slice(2);
   var images = [];
   elem.forEach(function (name) {
-    images = images.concat(getImages(name));
-    console.log(getImages(name).ret);
+    images = images.concat(util.getImages(name));
+    // remove undefined element
+    images = images.filter(function(n){ return n != undefined });
   });
   res.render('image', {
     img: images
@@ -58,30 +60,25 @@ router.get('/image', function(req, res, next) {
 
 // return all file path from a path, recursivly
 function getImages(path){
-  var ret = [];
-
+  // si le path pointe vers un dossier
   if (fs.lstatSync(path).isDirectory()) {
+    var ret = [];
     var innerFile = [];
     fs.readdirSync(path).forEach(function (name) {
+      // for each elem in the directory, we try to get Images
       innerFile = innerFile.concat(getImages(path+'/'+name));
     });
     ret = ret.concat(innerFile);
     return ret;
-  } else {
-    var ret;
-
-    magic.detectFile(path, function(err, result) {
-      if (err) throw err;
-
-      console.log(colors.cyan(result));
-      if (result === 'image/png') {
-        console.log(colors.america(path));
-      } else {
-        path = '';
-      }
-      ret = path;
-    });
-    return magic.detectFile.result;
+  }
+  // si le path pointe vers un fichier
+  else {
+    // if type mime is an image
+    result = mime.lookup(path);
+    // console.log(colors.america(result));
+    if (result.indexOf('image') > -1 ) {
+      return path;
+    }
   }
 }
 

@@ -7,8 +7,6 @@ var colors = require('colors/safe');
 var mime = require('mime');
 var router = express.Router();
 
-var util = require('../util/util.js');
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var max = process.argv.slice(2).length;
@@ -49,7 +47,7 @@ router.get('/image', function(req, res, next) {
   var elem = process.argv.slice(2);
   var images = [];
   elem.forEach(function (name) {
-    images = images.concat(util.getImages(name));
+    images = images.concat(getImages(name));
     // remove undefined element
     images = images.filter(function(n){ return n != undefined });
   });

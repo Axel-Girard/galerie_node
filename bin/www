@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+// npm install --save daemon
+// Pour deamonized le serveur (faire en sorte qu'il ne soit plus rattaché au serveur)
+// require('daemon')();
+
 /**
  * Module dependencies.
  */
@@ -7,6 +11,7 @@
 var app = require('../app');
 var debug = require('debug')('myapp:server');
 var http = require('http');
+var colors = require('colors/safe');
 
 /**
  * Get port from environment and store in Express.
@@ -86,5 +91,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+  console.log(colors.rainbow('Listening on ' + bind));
   debug('Listening on ' + bind);
 }

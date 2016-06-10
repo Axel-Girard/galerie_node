@@ -5,7 +5,11 @@ block content
   p Welcome to #{title}
   //img(src=image)
   - var val = 0
-  while val < 19
+  p Welcome to '#{argc}'
+  - var max = parseInt( argc, 10);
+  p= max
+  p #{argv}
+  while val < max
     if val < 10
       img(src='0' + val++ + '.jpeg')
     else

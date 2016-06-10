@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  #links.links
+    each path, index in img
+      a(href="img/"+path, data-gallery)
+        img(src="img/"+path)
+
+  #blueimp-gallery.blueimp-gallery
+    div.slides
+    h3.title
+    a.prev
+    a.next
+    a.close
+    a.play-pause
+    ol.indicator

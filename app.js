@@ -57,4 +57,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// ajout de sécurité sur les entête HTTP
+var helmet = require('helmet');
+app.use(helmet());
+
 module.exports = app;

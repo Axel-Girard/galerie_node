@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  //img(src=image)
+  - var cpt = 0;
+  table
+    each val in argv
+      tr
+        td
+          a(href="#"+cpt, data-toggle="modal")
+            img(src=val)
+          div.modal.col-md-12.fade(tabindex="-1" role="dialog" aria-hidden="true", id=cpt++)
+            .modal-dialog.modal-content.modal-body
+              img.img-responsive.col-md-12(src=val)

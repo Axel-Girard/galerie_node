@@ -8,7 +8,7 @@ var mime = require('mime');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/arg', function(req, res, next) {
   var max = process.argv.slice(2).length;
   console.log(colors.random('total argu : ' + max));
   res.render('index', {
@@ -42,19 +42,25 @@ router.get('/img/*', function(req, res, next) {
 });
 
 // lire les images des path passés dans les arguments
-router.get('/image', function(req, res, next) {
+router.get('/', function(req, res, next) {
   // get all arguments give in commande line
   var elem = process.argv.slice(2);
-  var images = [];
-  elem.forEach(function (name) {
-    images = images.concat(getImages(name));
-    // remove undefined element
-    images = images.filter(function(n){ return n != undefined });
-  });
-  res.render('image', {
-    title: 'Images',
-    img: images
-  });
+  if(elem.length >= 1){
+    var images = [];
+    elem.forEach(function (name) {
+      images = images.concat(getImages(name));
+      // remove undefined element
+      images = images.filter(function(n){ return n != undefined });
+    });
+    res.render('image', {
+      title: 'Images',
+      img: images
+    });
+  } else {
+    res.render('no_args', {
+      title: 'No arguments'
+    });
+  }
 });
 
 // return all file path from a path, recursivly

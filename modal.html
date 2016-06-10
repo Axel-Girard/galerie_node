@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>Modal</title>
   <link rel="stylesheet" href="public/stylesheets/style.css">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="public/css/blueimp-gallery.css">
+  <link rel="stylesheet" href="public/css/blueimp-gallery-indicator.css">
 </head>
 <body>
 
 <div class="container">
-  <!-- Bouton execution modal -->
-	<a data-toggle="modal" data-target="#myModal">
-      <img src="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg">
-	</a>
 
-  <!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  	<div class="modal-dialog modal-lg">
-    	<div class="modal-content">
-      	<div class="modal-header">
-        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        	<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      	</div>
-      	<div class="modal-body">
-          <img src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg">
-      	</div>
-    	</div><!-- /.modal-content -->
-  	</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+  <div id="links">
+    <a href="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg" title="Banana" data-gallery="">
+        <img src="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg" alt="Banana">
+    </a>
+    <a href="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" title="Apple" data-gallery="">
+        <img src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" alt="Apple">
+    </a>
+  </div>
+
+  <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+  <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+  <div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+  </div>
+
 </div>
+<script src="public/js/blueimp-helper.js"></script>
+<script src="public/js/blueimp-gallery.js"></script>
+<script src="public/js/blueimp-gallery-indicator.js"></script>
+<script src="public/js/vendor/jquery.js"></script>
+<script src="public/js/jquery.blueimp-gallery.js"></script>
 </body>
 </html>

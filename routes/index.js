@@ -52,6 +52,7 @@ router.get('/image', function(req, res, next) {
     images = images.filter(function(n){ return n != undefined });
   });
   res.render('image', {
+    title: 'Images',
     img: images
   });
 });

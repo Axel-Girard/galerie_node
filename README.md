@@ -1,6 +1,10 @@
 # galerie_node
 
 Une galerie d'image faite en JavaScript avec node et express.
+Utilisation de
+  blueimp Garllery : https://blueimp.github.io/Bootstrap-Image-Gallery/
+  Bootstrap : http://v4-alpha.getbootstrap.com/
+
 
 En construction.
 
